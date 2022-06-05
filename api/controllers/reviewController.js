@@ -1,4 +1,4 @@
-const AppError = require('../utils/AppError');
+const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const cookieService = require("../services/cookieService");
 const jwtService = require('../services/jwtService');
