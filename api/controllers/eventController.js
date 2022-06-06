@@ -55,7 +55,7 @@ exports.getEventById = catchAsync(async (req, res, next) => {
 exports.createEvent = catchAsync(async (req, res, next) => {
     // extract json data from form data and assign to body by parsing
     req.body = JSON.parse(req.body.jsonData)
-    // create base url
+    // create base url for image upload
     const url = req.protocol + '://' + req.get('host');
 
     // create the image url and add it to the req.body

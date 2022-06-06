@@ -116,6 +116,8 @@ exports.login = catchAsync(async (req, res, next) => {
     const sessionCookie = await cookieService.encrypt(sessionToken);
     const sessionExpiry = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
 
+    console.log("if secure or not: ", req.secure, "https",  req.headers['x-forwarded-proto'] === 'https');
+
     // assign the cookie to the response
     res.cookie("__session", sessionCookie, {
         expires: sessionExpiry,

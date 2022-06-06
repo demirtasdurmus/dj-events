@@ -19,8 +19,11 @@ const errorHandler = require('./middleware/errors/errorHandler');
 // start express server
 const app = express();
 
+app.enable('trust proxy');
+
+const corsConfig = { origin: "https://durmusdemirtas.com", credentials: true }
 // set up cors
-app.use(cors());
+app.use(cors(corsConfig));
 
 // set up logger
 if (process.env.NODE_ENV === "development") {
@@ -39,7 +42,7 @@ const limiter = rateLimit({
 app.use("/api", limiter);
 
 // set security http headers
-app.use(helmet());
+// app.use(helmet());
 
 // parse cookies
 app.use(cookieParser());
