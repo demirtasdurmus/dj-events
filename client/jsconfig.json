@@ -16,6 +16,9 @@
             ],
             "@/utils/*": [
                 "utils/*"
+            ],
+            "@/routers/*": [
+                "routers/*"
             ]
         }
     }

@@ -6,9 +6,10 @@ import Link from "next/link";
 import styles from "@/styles/AddEvent.module.css";
 import Layout from "@/components/Layout";
 import httpClient from '@/utils/createHttpClient';
+import PrivateRoute from 'routers/PrivateRoute';
 
 
-export default function AddEventPage() {
+function AddEventPage() {
     const router = useRouter();
     const [values, setValues] = useState({
         name: "",
@@ -135,3 +136,5 @@ export default function AddEventPage() {
         </Layout>
     )
 }
+
+export default PrivateRoute(AddEventPage);

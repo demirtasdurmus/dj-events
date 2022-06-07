@@ -1,3 +1,4 @@
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from "react";
@@ -139,7 +140,7 @@ export default function EditEventPage({ event }) {
 }
 
 export async function getServerSideProps({ query: { id } }) {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/events/getById/${id}`);
+    const res = await httpClient.get(`${process.env.NEXT_PUBLIC_API_URL}/api/events/getById/${id}`);
     const event = res.data.data;
     return {
         props: {
