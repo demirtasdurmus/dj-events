@@ -7,6 +7,7 @@ import Link from "next/link";
 import styles from "@/styles/AddEvent.module.css";
 import Layout from "@/components/Layout";
 import httpClient from '@/utils/createHttpClient';
+import withAuth from '@/routers/withAuth';
 
 
 export default function EditEventPage({ event }) {
@@ -139,12 +140,13 @@ export default function EditEventPage({ event }) {
     )
 }
 
-export async function getServerSideProps({ query: { id } }) {
-    const res = await httpClient.get(`${process.env.NEXT_PUBLIC_API_URL}/api/events/getById/${id}`);
+export const getServerSideProps = withAuth(async (ctx) => {
+    console.log(ctx.query.id, "kkkkkk")
+    const res = await httpClient.get(`${process.env.NEXT_PUBLIC_API_URL}/api/events/getById/${ctx.query.id}`);
     const event = res.data.data;
     return {
         props: {
             event: event,
         },
     };
-}
+});
