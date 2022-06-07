@@ -12,7 +12,7 @@ process.on("uncaughtException", err => {
 dotenv.config({ path: "./.config.env" });
 
 // connect to MongoDB
-mongoose.connect(`mongodb://admin:admin@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}?authSource=admin`)
+mongoose.connect(`${process.env.DB_STRING}`)
     .then((con) => {
         con.connections.map(db => {
             console.log(`Connected to ${db.name} db successfully!`)
