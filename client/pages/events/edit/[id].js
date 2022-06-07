@@ -10,7 +10,9 @@ import httpClient from '@/utils/createHttpClient';
 import withAuth from '@/routers/withAuth';
 
 
-export default function EditEventPage({ event }) {
+export default function EditEventPage({ event, user }) {
+    // we have access the user data from getServerSideProps
+    console.log("client side", user)
     const router = useRouter();
     const [values, setValues] = useState({
         name: event.name,

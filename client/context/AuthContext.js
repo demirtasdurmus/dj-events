@@ -72,8 +72,7 @@ export const AuthProvider = ({ children }) => {
                 setUser(res.data.data);
             })
             .catch(err => {
-                console.log(err)
-                setError(err.response.data.message);
+                setUser(null)
             })
             .finally(() => {
                 setIsLoading(false);
