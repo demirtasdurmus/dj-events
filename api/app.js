@@ -19,9 +19,10 @@ const errorHandler = require('./middleware/errors/errorHandler');
 // start express server
 const app = express();
 
+// enable proxy for access some data
 app.enable('trust proxy');
 
-const corsConfig = { origin: "https://durmusdemirtas.com", credentials: true }
+const corsConfig = { origin: ["http://localhost:3000", "https://durmusdemirtas.com"], credentials: true }
 // set up cors
 app.use(cors(corsConfig));
 
