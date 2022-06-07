@@ -59,7 +59,10 @@ exports.createEvent = catchAsync(async (req, res, next) => {
     const url = req.protocol + '://' + req.get('host');
 
     // create the image url and add it to the req.body
-    req.body.image = req.file ? url + "/" + req.file.filename : null
+    req.body.image = req.file ? url + "/" + req.file.filename : null;
+
+    // create owner id and add it to the req.body
+    req.body.owner = req.user._id;
 
     const newEvent = await Event.create(req.body);
 
@@ -68,12 +71,18 @@ exports.createEvent = catchAsync(async (req, res, next) => {
 
 exports.updateEventById = catchAsync(async (req, res, next) => {
     // extract json data from form data and assign to body by parsing
-    req.body = JSON.parse(req.body.jsonData)
+    req.body = JSON.parse(req.body.jsonData);
+
+    // find image to delete
+    const evt = await Event.findById(req.params.id);
+
+    // check if the client is owner of the event
+    if (evt.owner.toString() !== req.user._id.toString()) {
+        return next(new AppError(401, "You are not authorized to update this event"));
+    };
+
     // create base url
     if (req.file) {
-        // find image to delete
-        const evt = await Event.findById(req.params.id);
-
         // find image location and name
         let domainName = req.protocol + '://' + req.get('host');
         let path = `./${process.env.IMAGES_DIR}/${evt.image.slice(domainName.length + 1)}`;
@@ -106,6 +115,11 @@ exports.updateEventById = catchAsync(async (req, res, next) => {
 exports.deleteEventById = catchAsync(async (req, res, next) => {
     // find image to delete
     const evt = await Event.findById(req.params.id);
+
+    // check if the client is owner of the event
+    if (evt.owner.toString() !== req.user._id.toString()) {
+        return next(new AppError(401, "You are not authorized to delete this event"));
+    };
 
     //find and delete event
     const event = await Event.deleteOne({ _id: req.params.id });

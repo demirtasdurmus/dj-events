@@ -3,6 +3,7 @@ const catchAsync = require('./../utils/catchAsync');
 const cookieService = require("../services/cookieService");
 const jwtService = require('../services/jwtService');
 const User = require('../models/userModel');
+const Event = require('../models/eventModel');
 
 
 exports.updateMyPassword = catchAsync(async (req, res, next) => {
@@ -67,9 +68,9 @@ exports.updateMyPassword = catchAsync(async (req, res, next) => {
 
 exports.getMyData = catchAsync(async (req, res, next) => {
     // TODO: - get user Data
-    // exclude unnecessary fields
+    const data = await Event.find({ owner: req.user._id });
     // send the data to the client
-    res.status(200).send({ status: "success", data: { message: "not implemented yet" } });
+    res.status(200).send({ status: "success", data: data });
 });
 
 exports.updateMyData = catchAsync(async (req, res, next) => {

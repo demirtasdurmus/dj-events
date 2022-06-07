@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
         httpClient.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, user)
             .then(res => {
                 checkAuthStatus();
-                router.push('/');
+                router.push('/account/dashboard');
             })
             .catch(err => {
                 setError(err.response.data.message);

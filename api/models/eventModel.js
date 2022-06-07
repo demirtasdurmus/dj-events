@@ -53,6 +53,11 @@ const eventSchema = new mongoose.Schema({
         default: Date.now(),
         select: false
     },
+    owner: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+        required: [true, 'An event must belong to a user']
+    }
 });
 
 

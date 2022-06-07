@@ -2,7 +2,7 @@ import httpClient from "@/utils/createHttpClient";
 
 export default function withAuth(gssp) {
     return async (context) => {
-        console.log("hoc", context.req.headers.cookie);
+        //console.log("hoc", context.req.headers.cookie);
         const cookie = context.req.headers.cookie;
         let user;
         if (cookie) {
