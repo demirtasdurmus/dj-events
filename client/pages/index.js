@@ -1,7 +1,7 @@
-import axios from 'axios';
 import Layout from '@/components/Layout';
 import EventItem from '@/components/EventItem';
 import Link from 'next/link';
+import httpClient from '@/utils/createHttpClient';
 
 
 export default function Home({ events = [] }) {
@@ -24,13 +24,14 @@ export default function Home({ events = [] }) {
   )
 }
 
-export async function getStaticProps() {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/events?limit=3`);
+export async function getServerSideProps(ctx) {
+  //TODO: we can pass the cookie to serverside to authenticate to reach resources
+  console.log(ctx.req.headers.cookie);
+  const res = await httpClient.get(`${process.env.NEXT_PUBLIC_API_URL}/api/events?limit=3`);
   const events = res.data.data;
   return {
     props: {
-      events: events,
-      revalidate: 1
+      events: events
     },
   };
 }

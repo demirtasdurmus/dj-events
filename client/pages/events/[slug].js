@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/router";
@@ -7,6 +6,7 @@ import styles from "@/styles/Event.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import { FaPencilAlt, FaTimes } from "react-icons/fa";
+import httpClient from '@/utils/createHttpClient';
 
 
 export default function EventPage({ event }) {
@@ -15,7 +15,7 @@ export default function EventPage({ event }) {
     const deleteEvent = (e) => {
         // FIXME: create a confirmation modal before deleting
         e.preventDefault();
-        axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/events/${event._id}`)
+        httpClient.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/events/${event._id}`)
             .then(res => {
                 toast.success("Event deleted successfully");
                 router.push("/events");
@@ -79,7 +79,7 @@ export default function EventPage({ event }) {
 }
 
 export async function getStaticPaths() {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/events`);
+    const res = await httpClient.get(`${process.env.NEXT_PUBLIC_API_URL}/api/events`);
 
     const paths = res.data.data.map(event => ({
         params: {
@@ -94,7 +94,7 @@ export async function getStaticPaths() {
 
 
 export async function getStaticProps({ params: { slug } }) {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/events/${slug}`);
+    const res = await httpClient.get(`${process.env.NEXT_PUBLIC_API_URL}/api/events/${slug}`);
 
     const event = res.data.data;
 

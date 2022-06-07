@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Layout from '@/components/Layout';
 import EventItem from '@/components/EventItem';
+import httpClient from '@/utils/createHttpClient';
 
 
 export default function SearchPage({ events = [] }) {
@@ -20,7 +20,7 @@ export default function SearchPage({ events = [] }) {
 }
 
 export async function getServerSideProps({ query: { searchTerm } }) {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/events?searchTerm=${searchTerm}`);
+    const res = await httpClient.get(`${process.env.NEXT_PUBLIC_API_URL}/api/events?searchTerm=${searchTerm}`);
     const events = res.data.data;
     return {
         props: {

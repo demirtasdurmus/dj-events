@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from "react";
@@ -6,6 +5,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import styles from "@/styles/AddEvent.module.css";
 import Layout from "@/components/Layout";
+import httpClient from '@/utils/createHttpClient';
 
 
 export default function EditEventPage({ event }) {
@@ -42,7 +42,7 @@ export default function EditEventPage({ event }) {
         image && formData.append("image", image, image.name);
         formData.append("jsonData", JSON.stringify(values));
 
-        axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/events/${event._id}`, formData)
+        httpClient.post(`${process.env.NEXT_PUBLIC_API_URL}/api/events/${event._id}`, formData)
             .then(res => {
                 toast.success("Event created successfully");
                 router.push(`/events/${event.slug}`);
