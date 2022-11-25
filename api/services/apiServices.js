@@ -7,6 +7,7 @@ class ApiService {
     }
 
     filter() {
+        console.log("jjjdjdjd", this.query)
         // build queryObj and exclude fields for filtering
         const queryObj = { ...this.queryString };
 

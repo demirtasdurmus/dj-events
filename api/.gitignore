@@ -3,6 +3,7 @@
 
 # dev-data
 /dev-data
+/images
 
 *.DS_Store
 

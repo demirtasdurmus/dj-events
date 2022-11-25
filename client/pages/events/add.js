@@ -27,6 +27,7 @@ function AddEventPage() {
     };
 
     const handleFileChange = (e) => {
+        console.log("******", e.target.files[0])
         setImage(e.target.files[0])
     }
 
@@ -41,10 +42,12 @@ function AddEventPage() {
         formData.append("image", image, image.name);
         formData.append("jsonData", JSON.stringify(values));
 
+        console.log("-----", formData)
+
         httpClient.post(`${process.env.NEXT_PUBLIC_API_URL}/api/events`, formData)
             .then(res => {
                 toast.success("Event created successfully");
-                router.push("/events");
+                // router.push("/events");
             })
             .catch(err => {
                 toast.error(err.response.data.message);

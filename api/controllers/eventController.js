@@ -7,6 +7,7 @@ const Event = require('../models/eventModel');
 
 exports.getAllEvents = catchAsync(async (req, res, next) => {
     // construct query object
+    console.log(req.query)
     const searchFields = ['name', 'description'];
     const apiService = new ApiService(Event.find(), req.query, searchFields)
         .filter()
